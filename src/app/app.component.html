@@ -1,9 +1,27 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-  <h1>
-    Welcome to {{ title }}!
-  </h1>
-  
+<div class="text-center">
+  <header>
+    <h1>Tic Tac Toe IA</h1>
+  </header>
+  <div id="box">
+
+    <div id="message"></div>
+    <ul id="gameBoard">
+
+      <li class="tic" (click)="sendCoordinates(0,0,valueUser)">{{totito[0][0]}}</li>
+      <li class="tic" (click)="sendCoordinates(0,1,valueUser)">{{totito[0][1]}}</li>
+      <li class="tic" (click)="sendCoordinates(0,2,valueUser)">{{totito[0][2]}}</li>
+
+      <li class="tic" (click)="sendCoordinates(1,0,valueUser)">{{totito[1][0]}}</li>
+      <li class="tic" (click)="sendCoordinates(1,1,valueUser)">{{totito[1][1]}}</li>
+      <li class="tic" (click)="sendCoordinates(1,2,valueUser)">{{totito[1][2]}}</li>
+
+      <li class="tic" (click)="sendCoordinates(2,0,valueUser)">{{totito[2][0]}}</li>
+      <li class="tic" (click)="sendCoordinates(2,1,valueUser)">{{totito[2][1]}}</li>
+      <li class="tic" (click)="sendCoordinates(2,2,valueUser)">{{totito[2][2]}}</li>
+    </ul>
+    <div class="clearfix"></div>
+    <footer>
+      <button id="reset" (click)="initializeBoard()">Limpiar</button>
+    </footer>
+  </div>
 </div>
-
-
