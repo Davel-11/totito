@@ -77,7 +77,6 @@ export class AppComponent implements OnInit {
 
   }
 
-
   returnPosition(randomNumber: number){
 
     let position = [];
