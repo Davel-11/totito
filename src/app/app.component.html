@@ -7,17 +7,33 @@
     <div id="message"></div>
     <ul id="gameBoard">
 
-      <li class="tic" (click)="sendCoordinates(0,0,valueUser)">{{totito[0][0]}}</li>
-      <li class="tic" (click)="sendCoordinates(0,1,valueUser)">{{totito[0][1]}}</li>
-      <li class="tic" (click)="sendCoordinates(0,2,valueUser)">{{totito[0][2]}}</li>
+      <li class="tic" (click)="sendCoordinates(0,0,valueUser)" *ngIf="totito[0][0] === 0"> - </li>
+      <li class="tic" (click)="sendCoordinates(0,0,valueUser)" *ngIf=" !(totito[0][0] === 0) "> {{  totito[0][0] === 1 ? 'O' : 'X'  }} </li>
 
-      <li class="tic" (click)="sendCoordinates(1,0,valueUser)">{{totito[1][0]}}</li>
-      <li class="tic" (click)="sendCoordinates(1,1,valueUser)">{{totito[1][1]}}</li>
-      <li class="tic" (click)="sendCoordinates(1,2,valueUser)">{{totito[1][2]}}</li>
+      <li class="tic" (click)="sendCoordinates(0,1,valueUser)" *ngIf="totito[0][1] === 0"> - </li>
+      <li class="tic" (click)="sendCoordinates(0,1,valueUser)" *ngIf=" !(totito[0][1] === 0) "> {{  totito[0][1] === 1 ? 'O' : 'X'  }} </li>
+      
+      <li class="tic" (click)="sendCoordinates(0,2,valueUser)" *ngIf="totito[0][2] === 0"> - </li>
+      <li class="tic" (click)="sendCoordinates(0,2,valueUser)" *ngIf=" !(totito[0][2] === 0) "> {{  totito[0][2] === 1 ? 'O' : 'X'  }} </li>
 
-      <li class="tic" (click)="sendCoordinates(2,0,valueUser)">{{totito[2][0]}}</li>
-      <li class="tic" (click)="sendCoordinates(2,1,valueUser)">{{totito[2][1]}}</li>
-      <li class="tic" (click)="sendCoordinates(2,2,valueUser)">{{totito[2][2]}}</li>
+      <li class="tic" (click)="sendCoordinates(1,0,valueUser)" *ngIf="totito[1][0] === 0"> - </li>
+      <li class="tic" (click)="sendCoordinates(1,0 ,valueUser)" *ngIf=" !(totito[1][0] === 0) "> {{  totito[1][0] === 1 ? 'O' : 'X'  }} </li>
+
+      <li class="tic" (click)="sendCoordinates(1,1,valueUser)" *ngIf="totito[1][1] === 0"> - </li>
+      <li class="tic" (click)="sendCoordinates(1,1,valueUser)" *ngIf=" !(totito[1][1] === 0) "> {{  totito[1][1] === 1 ? 'O' : 'X'  }} </li>
+
+      <li class="tic" (click)="sendCoordinates(1,2,valueUser)" *ngIf="totito[1][2] === 0"> - </li>
+      <li class="tic" (click)="sendCoordinates(1,2,valueUser)" *ngIf=" !(totito[1][2] === 0) "> {{  totito[1][2] === 1 ? 'O' : 'X'  }} </li>
+
+      <li class="tic" (click)="sendCoordinates(2,0,valueUser)" *ngIf="totito[2][0] === 0"> - </li>
+      <li class="tic" (click)="sendCoordinates(2,0,valueUser)" *ngIf=" !(totito[2][0] === 0) "> {{  totito[2][0] === 1 ? 'O' : 'X'  }} </li>
+
+      <li class="tic" (click)="sendCoordinates(2,1,valueUser)" *ngIf="totito[2][1] === 0"> - </li>
+      <li class="tic" (click)="sendCoordinates(2,1,valueUser)" *ngIf=" !(totito[2][1] === 0) "> {{  totito[2][1] === 1 ? 'O' : 'X'  }} </li>
+
+      <li class="tic" (click)="sendCoordinates(2,2,valueUser)" *ngIf="totito[2][2] === 0"> - </li>
+      <li class="tic" (click)="sendCoordinates(2,2,valueUser)" *ngIf=" !(totito[2][2] === 0) "> {{  totito[2][2] === 1 ? 'O' : 'X'  }} </li>
+      
     </ul>
     <div class="clearfix"></div>
     <footer>
