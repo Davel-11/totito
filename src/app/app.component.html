@@ -2,12 +2,16 @@
   <header>
     <h1>Tic Tac Toe IA</h1>
   </header>
+
+
+  <div> {{ (thewinner == 0 ? '' : thewinner == 1 ? 'Jugador 1 es el Ganador' : 'Jugador 2 es el Ganador') }}   </div>
+
   <div id="box">
 
     <div id="message"></div>
     <ul id="gameBoard">
 
-      <li class="tic" (click)="sendCoordinates(0,0,valueUser)" *ngIf="totito[0][0] === 0"> - </li>
+      <li class="tic" (click)="sendCoordinates(0,0,valueUser)" *ngIf="totito[0][0] === 0" > - </li>
       <li class="tic" (click)="sendCoordinates(0,0,valueUser)" *ngIf=" !(totito[0][0] === 0) "> {{  totito[0][0] === 1 ? 'O' : 'X'  }} </li>
 
       <li class="tic" (click)="sendCoordinates(0,1,valueUser)" *ngIf="totito[0][1] === 0"> - </li>

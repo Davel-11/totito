@@ -19,6 +19,8 @@ export class AppComponent implements OnInit {
 
   learnMachine = [];
 
+  thewinner = 0;
+
   ngOnInit() {
 
     this.totito = [];
@@ -31,22 +33,27 @@ export class AppComponent implements OnInit {
 
   sendCoordinates(x: number, y: number, jugador: string) {
 
+    let validar = this.totito[x][y];
+
+    if ( validar == 0 && this.thewinner == 0){
+
+        this.totito[x][y] = 1;
+        if( this.winner(this.totito) ) {
+            this.thewinner = 1;
+            console.log("winner jugarodr" )
+        } else {
+          // this.tableOne(this.totito);
+          this.moverMaquina( x, y );
+          if( this.winner(this.totito) ) {
+            console.log("winner maquina" )
+            this.thewinner = 2;
+
+          }
+        } 
+
+        console.log('totito hasta el momento', this.totito);
+    }
     
-    this.totito[x][y] = 1;
-    if( this.winner(this.totito) ) {
-        console.log("winner jugarodr" )
-    } else {
-      // this.tableOne(this.totito);
-      this.moverMaquina();
-      if( this.winner(this.totito) ) {
-        console.log("winner maquina" )
-      }
-    } 
-
-    console.log('totito hasta el momento', this.totito);
-
-    
-
   }
 
  
@@ -153,7 +160,6 @@ export class AppComponent implements OnInit {
 
   }
 
-
   tableOne(totito: number[][]) {
 
     let position = [];
@@ -218,6 +224,7 @@ export class AppComponent implements OnInit {
   }
 
   initializeBoard() {
+    this.thewinner = 0;
     for (let i = 0; i < 3; i++) {
       this.totito[i] = [];
       for (let j = 0; j < 3; j++) {
@@ -226,7 +233,43 @@ export class AppComponent implements OnInit {
     }
   }
 
-  moverMaquina() {
+  // moverMaquina() {
+  //   let maquina = false;
+	// 	if(  this.learnMachine.length > 0 ) {
+	// 		let greatestValue = 0;
+	// 		let greatestMov = [];
+	// 		for (let movi of this.learnMachine) {
+	// 			let pieza = 0;
+	// 			let suma = 0;
+	// 			for (let mo of movi) {
+	// 				pieza = this.totito[mo.x][mo.y];
+	// 				if (pieza != 0 && pieza == 1) {
+	// 					suma++;
+	// 				}
+	// 			}
+	// 			if (suma >= greatestValue) {
+	// 				greatestValue = suma;
+	// 				greatestMov = movi;
+	// 			}
+
+	// 		}
+	// 		for (let mo of greatestMov) {
+	// 			let pieza = this.totito[mo.x][mo.y];
+	// 			if (pieza == 0) {
+  //         this.totito[mo.x][mo.y] = 2;
+  //         maquina = true;
+	// 				return;
+	// 			}
+	// 		}
+  //   } 
+  //   if(!maquina) {
+
+	// 			this.tableOne(this.totito);
+	// 	}
+	// }
+
+
+  moverMaquina(x:number,y:number) {
     let maquina = false;
 		if(  this.learnMachine.length > 0 ) {
 			let greatestValue = 0;
@@ -235,9 +278,14 @@ export class AppComponent implements OnInit {
 				let pieza = 0;
 				let suma = 0;
 				for (let mo of movi) {
-					pieza = this.totito[mo.x][mo.y];
-					if (pieza != 0 && pieza == 1) {
-						suma++;
+					if(mo.x===x && mo.y===y){
+						for (let mo1 of movi) {
+              // tiro Prioridad
+							pieza = this.totito[mo1.x][mo1.y];
+							if (pieza != 0 && pieza == 1) {
+								suma++;
+							}
+						}
 					}
 				}
 				if (suma >= greatestValue) {
@@ -255,12 +303,12 @@ export class AppComponent implements OnInit {
 				}
 			}
     } 
+    // si no hay moviemientos pasados, tira randoom o si no encuenta Movimiento disponible, tira randoom
     if(!maquina) {
 
 				this.tableOne(this.totito);
 		}
 	}
-
 
 
 }
