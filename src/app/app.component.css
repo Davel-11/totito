@@ -63,3 +63,15 @@ footer {
   text-align: center;
   padding-top: 20px;
 }
+
+.victory-label {
+  color: #fff;
+}
+
+.table-wins {
+  color: #fff;
+}
+
+.without-scroll {
+  overflow-x: hidden;
+}

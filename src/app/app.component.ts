@@ -1,7 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
-import { Movement } from './movement.model';
-import { isNullOrUndefined } from 'util';
+import {Movement} from './movement.model';
 
 @Component({
   selector: 'app-root',
@@ -20,6 +18,8 @@ export class AppComponent implements OnInit {
   learnMachine = [];
 
   thewinner = 0;
+  winsOfPlayerOne = 0;
+  winsOfIA = 0;
 
   ngOnInit() {
 
@@ -29,161 +29,161 @@ export class AppComponent implements OnInit {
 
   }
 
-  
 
   sendCoordinates(x: number, y: number, jugador: string) {
 
-    let validar = this.totito[x][y];
+    const validar = this.totito[x][y];
 
-    if ( validar == 0 && this.thewinner == 0){
+    if (validar === 0 && this.thewinner === 0) {
 
-        this.totito[x][y] = 1;
-        if( this.winner(this.totito) ) {
-            this.thewinner = 1;
-            console.log("winner jugarodr" )
-        } else {
-          // this.tableOne(this.totito);
-          this.moverMaquina( x, y );
-          if( this.winner(this.totito) ) {
-            console.log("winner maquina" )
-            this.thewinner = 2;
+      this.totito[x][y] = 1;
+      const wonPlayerOne = this.winner(this.totito);
+      if (wonPlayerOne) {
+        this.winsOfPlayerOne++;
+        this.thewinner = 1;
+        console.log(this.learnMachine);
+        console.log('winner jugador');
+      } else {
+        // this.tableOne(this.totito);
+        this.moverMaquina(x, y);
+        const wonIA = this.winner(this.totito);
+        if (wonIA) {
+          this.winsOfIA++;
+          console.log('winner maquina');
+          console.log(this.learnMachine);
+          this.thewinner = 2;
 
-          }
-        } 
+        }
+      }
 
-        console.log('totito hasta el momento', this.totito);
+      console.log('totito hasta el momento', this.totito);
     }
-    
+
   }
 
- 
-  winner(totito) : boolean {
-  
+  winner(totito): boolean {
 
-	// ESQUINA SUPERIOR IZQUIERDA
-  let movi : Movement[] = [];
-  let position = [];
-  
-  if (totito[0][0] != 0) {
-    // ABAJO
-    if (totito[1][0] != 0 && totito[1][0] == totito[0][0]) {
-      if (totito[2][0] != 0 && totito[2][0] == totito[1][0]) {
-        movi.push( new Movement(0, 0) );
-        movi.push(new Movement(1, 0));
-        movi.push(new Movement(2, 0));
-        this.learnMachine.push(movi);
-        return true;
+
+    // ESQUINA SUPERIOR IZQUIERDA
+    let movi: Movement[] = [];
+
+    if (totito[0][0] !== 0) {
+      // ABAJO
+      if (totito[1][0] !== 0 && totito[1][0] === totito[0][0]) {
+        if (totito[2][0] !== 0 && totito[2][0] === totito[1][0]) {
+          movi.push(new Movement(0, 0));
+          movi.push(new Movement(1, 0));
+          movi.push(new Movement(2, 0));
+          this.learnMachine.push(movi);
+          return true;
+        }
+      }
+      // AL LADO
+      if (totito[0][1] !== 0 && totito[0][1] === totito[0][0]) {
+        if (totito[0][2] !== 0 && totito[0][2] === totito[0][1]) {
+          movi.push(new Movement(0, 0));
+          movi.push(new Movement(0, 1));
+          movi.push(new Movement(0, 2));
+          this.learnMachine.push(movi);
+          return true;
+        }
+      }
+      // DIAGONAL
+      if (totito[1][1] !== 0 && totito[1][1] === totito[0][0]) {
+        if (totito[2][2] !== 0 && totito[2][2] === totito[1][1]) {
+          movi.push(new Movement(0, 0));
+          movi.push(new Movement(1, 1));
+          movi.push(new Movement(2, 2));
+          this.learnMachine.push(movi);
+          return true;
+        }
       }
     }
-    // AL LADO
-    if (totito[0][1] != 0 && totito[0][1] == totito[0][0]) {
-      if (totito[0][2] != 0 && totito[0][2] == totito[0][1]) {
-        movi.push(new Movement(0, 0));
-        movi.push(new Movement(0, 1));
-        movi.push(new Movement(0, 2));
-        this.learnMachine.push(movi);
-        return true;
+    // MEDIO
+    if (totito[0][1] !== 0) {
+      if (totito[1][1] !== 0 && totito[1][1] === totito[0][1]) {
+        if (totito[2][1] !== 0 && totito[2][1] === totito[1][1]) {
+          movi.push(new Movement(0, 1));
+          movi.push(new Movement(1, 1));
+          movi.push(new Movement(2, 1));
+          this.learnMachine.push(movi);
+          return true;
+        }
       }
     }
-    // DIAGONAL
-    if (totito[1][1] != 0 && totito[1][1] == totito[0][0]) {
-      if (totito[2][2] != 0 && totito[2][2] == totito[1][1]) {
-        movi.push(new Movement(0, 0));
-        movi.push(new Movement(1, 1));
-        movi.push(new Movement(2, 2));
-        this.learnMachine.push(movi);
-        return true;
+    if (totito[1][0] !== 0) {
+      // ABAJO
+      if (totito[1][1] !== 0 && totito[1][1] === totito[1][0]) {
+        if (totito[1][2] !== 0 && totito[1][2] === totito[1][1]) {
+          movi.push(new Movement(1, 0));
+          movi.push(new Movement(1, 1));
+          movi.push(new Movement(1, 2));
+          this.learnMachine.push(movi);
+          return true;
+        }
       }
     }
-  }
-  // MEDIO
-  if (totito[0][1] != 0) {
-    if (totito[1][1] != 0 && totito[1][1] == totito[0][1]) {
-      if (totito[2][1] != 0 && totito[2][1] == totito[1][1]) {
-        movi.push(new Movement(0, 1));
-        movi.push(new Movement(1, 1));
-        movi.push(new Movement(2, 1));
-        this.learnMachine.push(movi);
-        return true;
+    // ESQUINA SUPERIOR DERECHA
+    if (totito[0][2] !== 0) {
+      // ABAJO
+      if (totito[1][2] !== 0 && totito[1][2] === totito[0][2]) {
+        if (totito[2][2] !== 0 && totito[2][2] === totito[1][2]) {
+          movi.push(new Movement(0, 2));
+          movi.push(new Movement(1, 2));
+          movi.push(new Movement(2, 2));
+          this.learnMachine.push(movi);
+          return true;
+        }
+      }
+      // DIAGONAL
+      if (totito[1][1] !== 0 && totito[1][1] === totito[0][2]) {
+        if (totito[2][0] !== 0 && totito[2][0] === totito[1][1]) {
+          movi.push(new Movement(1, 1));
+          movi.push(new Movement(0, 2));
+          movi.push(new Movement(2, 0));
+          this.learnMachine.push(movi);
+          return true;
+        }
       }
     }
-  }
-  if (totito[1][0] != 0) {
-    // ABAJO
-    if (totito[1][1] != 0 && totito[1][1] == totito[1][0]) {
-      if (totito[1][2] != 0 && totito[1][2] == totito[1][1]) {
-        movi.push(new Movement(1, 0));
-        movi.push(new Movement(1, 1));
-        movi.push(new Movement(1, 2));
-        this.learnMachine.push(movi);
-        return true;
+    // ESQUINA INFERIOR DERECHA
+    if (totito[2][0] !== 0) {
+      // ABAJO
+      if (totito[2][1] !== 0 && totito[2][1] === totito[2][0]) {
+        if (totito[2][2] !== 0 && totito[2][2] === totito[2][1]) {
+          movi.push(new Movement(2, 0));
+          movi.push(new Movement(2, 1));
+          movi.push(new Movement(2, 2));
+          this.learnMachine.push(movi);
+          return true;
+        }
       }
     }
-  }
-  // ESQUINA SUPERIOR DERECHA
-  if (totito[0][2] != 0) {
-    // ABAJO
-    if (totito[1][2] != 0 && totito[1][2] == totito[0][2]) {
-      if (totito[2][2] != 0 && totito[2][2] == totito[1][2]) {
-        movi.push(new Movement(0, 2));
-        movi.push(new Movement(1, 2));
-        movi.push(new Movement(2, 2));
-        this.learnMachine.push(movi);
-        return true;
-      }
-    }
-    // DIAGONAL
-    if (totito[1][1] != 0 && totito[1][1] == totito[0][2]) {
-      if (totito[2][0] != 0 && totito[2][0] == totito[1][1]) {
-        movi.push(new Movement(1, 1));
-        movi.push(new Movement(0, 2));
-        movi.push(new Movement(2, 0));
-        this.learnMachine.push(movi);
-        return true;
-      }
-    }
-  }
-  // ESQUINA INFERIOR DERECHA
-  if (totito[2][0] != 0) {
-    // ABAJO
-    if (totito[2][1] != 0 && totito[2][1] == totito[2][0]) {
-      if (totito[2][2] != 0 && totito[2][2] == totito[2][1]) {
-        movi.push(new Movement(2, 0));
-        movi.push(new Movement(2, 1));
-        movi.push(new Movement(2, 2));
-        this.learnMachine.push(movi);
-        return true;
-      }
-    }
-  }
-  return false;
+    return false;
 
   }
 
   tableOne(totito: number[][]) {
 
     let position = [];
-
     let count = 0;
-   
 
-    while ( true ) {
-      let randomNumber = Math.floor(Math.random() * 9) + 1;
+    while (true) {
+      const randomNumber = Math.floor(Math.random() * 9) + 1;
       position = this.returnPosition(randomNumber);
-      let valor = totito[position[0]][position[1]];
+      const valor = totito[position[0]][position[1]];
       count++;
-      if ( valor === 0 ) {
+      if (valor === 0) {
         totito[position[0]][position[1]] = 2;
         return;
-      } 
+      }
 
-      if (count ===8 ){
+      if (count === 8) {
         return;
       }
 
     }
-    
-    
+
   }
 
   returnPosition(randomNumber: number) {
@@ -216,7 +216,7 @@ export class AppComponent implements OnInit {
     } else if (randomNumber === 9) {
       position.push(2, 2);
 
-    } 
+    }
 
 
     return position;
@@ -235,80 +235,80 @@ export class AppComponent implements OnInit {
 
   // moverMaquina() {
   //   let maquina = false;
-	// 	if(  this.learnMachine.length > 0 ) {
-	// 		let greatestValue = 0;
-	// 		let greatestMov = [];
-	// 		for (let movi of this.learnMachine) {
-	// 			let pieza = 0;
-	// 			let suma = 0;
-	// 			for (let mo of movi) {
-	// 				pieza = this.totito[mo.x][mo.y];
-	// 				if (pieza != 0 && pieza == 1) {
-	// 					suma++;
-	// 				}
-	// 			}
-	// 			if (suma >= greatestValue) {
-	// 				greatestValue = suma;
-	// 				greatestMov = movi;
-	// 			}
+  // 	if(  this.learnMachine.length > 0 ) {
+  // 		let greatestValue = 0;
+  // 		let greatestMov = [];
+  // 		for (let movi of this.learnMachine) {
+  // 			let pieza = 0;
+  // 			let suma = 0;
+  // 			for (let mo of movi) {
+  // 				pieza = this.totito[mo.x][mo.y];
+  // 				if (pieza !== 0 && pieza===1) {
+  // 					suma++;
+  // 				}
+  // 			}
+  // 			if (suma >= greatestValue) {
+  // 				greatestValue = suma;
+  // 				greatestMov = movi;
+  // 			}
 
-	// 		}
-	// 		for (let mo of greatestMov) {
-	// 			let pieza = this.totito[mo.x][mo.y];
-	// 			if (pieza == 0) {
+  // 		}
+  // 		for (let mo of greatestMov) {
+  // 			let pieza = this.totito[mo.x][mo.y];
+  // 			if (pieza===0) {
   //         this.totito[mo.x][mo.y] = 2;
   //         maquina = true;
-	// 				return;
-	// 			}
-	// 		}
+  // 				return;
+  // 			}
+  // 		}
   //   } 
   //   if(!maquina) {
 
-	// 			this.tableOne(this.totito);
-	// 	}
-	// }
+  // 			this.tableOne(this.totito);
+  // 	}
+  // }
 
 
-  moverMaquina(x:number,y:number) {
+  moverMaquina(x: number, y: number) {
     let maquina = false;
-		if(  this.learnMachine.length > 0 ) {
-			let greatestValue = 0;
-			let greatestMov = [];
-			for (let movi of this.learnMachine) {
-				let pieza = 0;
-				let suma = 0;
-				for (let mo of movi) {
-					if(mo.x===x && mo.y===y){
-						for (let mo1 of movi) {
+    if (this.learnMachine.length > 0) {
+      let greatestValue = 0;
+      let greatestMov = [];
+      for (let movi of this.learnMachine) {
+        let pieza = 0;
+        let suma = 0;
+        for (let mo of movi) {
+          if (mo.x === x && mo.y === y) {
+            for (let mo1 of movi) {
               // tiro Prioridad
-							pieza = this.totito[mo1.x][mo1.y];
-							if (pieza != 0 && pieza == 1) {
-								suma++;
-							}
-						}
-					}
-				}
-				if (suma >= greatestValue) {
-					greatestValue = suma;
-					greatestMov = movi;
-				}
+              pieza = this.totito[mo1.x][mo1.y];
+              if (pieza !== 0 && pieza === 1) {
+                suma++;
+              }
+            }
+          }
+        }
+        if (suma >= greatestValue) {
+          greatestValue = suma;
+          greatestMov = movi;
+        }
 
-			}
-			for (let mo of greatestMov) {
-				let pieza = this.totito[mo.x][mo.y];
-				if (pieza == 0) {
+      }
+      for (let mo of greatestMov) {
+        const pieza = this.totito[mo.x][mo.y];
+        if (pieza === 0) {
           this.totito[mo.x][mo.y] = 2;
           maquina = true;
-					return;
-				}
-			}
-    } 
+          return;
+        }
+      }
+    }
     // si no hay moviemientos pasados, tira randoom o si no encuenta Movimiento disponible, tira randoom
-    if(!maquina) {
+    if (!maquina) {
 
-				this.tableOne(this.totito);
-		}
-	}
+      this.tableOne(this.totito);
+    }
+  }
 
 
 }

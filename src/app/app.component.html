@@ -3,9 +3,6 @@
     <h1>Tic Tac Toe IA</h1>
   </header>
 
-
-  <div> {{ (thewinner == 0 ? '' : thewinner == 1 ? 'Jugador 1 es el Ganador' : 'Jugador 2 es el Ganador') }}   </div>
-
   <div id="box">
 
     <div id="message"></div>
@@ -16,7 +13,7 @@
 
       <li class="tic" (click)="sendCoordinates(0,1,valueUser)" *ngIf="totito[0][1] === 0"> - </li>
       <li class="tic" (click)="sendCoordinates(0,1,valueUser)" *ngIf=" !(totito[0][1] === 0) "> {{  totito[0][1] === 1 ? 'O' : 'X'  }} </li>
-      
+
       <li class="tic" (click)="sendCoordinates(0,2,valueUser)" *ngIf="totito[0][2] === 0"> - </li>
       <li class="tic" (click)="sendCoordinates(0,2,valueUser)" *ngIf=" !(totito[0][2] === 0) "> {{  totito[0][2] === 1 ? 'O' : 'X'  }} </li>
 
@@ -37,11 +34,34 @@
 
       <li class="tic" (click)="sendCoordinates(2,2,valueUser)" *ngIf="totito[2][2] === 0"> - </li>
       <li class="tic" (click)="sendCoordinates(2,2,valueUser)" *ngIf=" !(totito[2][2] === 0) "> {{  totito[2][2] === 1 ? 'O' : 'X'  }} </li>
-      
+
     </ul>
     <div class="clearfix"></div>
     <footer>
       <button id="reset" (click)="initializeBoard()">Limpiar</button>
     </footer>
   </div>
+
+  <div *ngIf="thewinner > 0" class="without-scroll">
+    <h1 class="text-center">
+      {{ (thewinner === 0 ? '' : thewinner === 1 ? 'Jugador 1 es el Ganador' : 'Jugador 2 es el Ganador') }}
+    </h1>
+    <h3 class="victory-label">Victorias</h3>
+    <div class="row">
+      <div class="col-lg-4"></div>
+      <table class="table-wins col-lg-3">
+        <tbody>
+        <tr>
+          <td>Jugador</td>
+          <td>{{winsOfPlayerOne}}</td>
+        </tr>
+        <tr>
+          <td>IA</td>
+          <td>{{winsOfIA}}</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
 </div>
